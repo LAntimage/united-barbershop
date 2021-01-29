@@ -35,14 +35,30 @@
       </div>
     </div>
     <div class="camera-controls">
-
+      <div class="slider">
+        <span>Поворот</span>
+        <VueSlider v-model="camera.rotation.current" :min="camera.rotation.min" :max="camera.rotation.max" width="100%" :height="9" tooltip="none" :dotOptions="{focusStyle: {'box-shadow': 'none'}}" :dotSize="12" :dotStyle="{background:'#BDBDBD', border: 'unset'}" :railStyle="{background:'#585858'}" :processStyle="{background:'#fff'}" />
+      </div>
+      <div class="slider">
+        <span>Высота</span>
+        <VueSlider v-model="camera.height.current" :min="camera.height.min" :max="camera.height.max" width="100%" :height="9" tooltip="none" :dotOptions="{focusStyle: {'box-shadow': 'none'}}" :dotSize="12" :dotStyle="{background:'#BDBDBD', border: 'unset'}" :railStyle="{background:'#585858'}" :processStyle="{background:'#fff'}" />
+      </div>
+      <div class="slider">
+        <span>Дальность</span>
+        <VueSlider v-model="camera.range.current" :min="camera.range.min" :max="camera.range.max" width="100%" :height="9" tooltip="none" :dotOptions="{focusStyle: {'box-shadow': 'none'}}" :dotSize="12" :dotStyle="{background:'#BDBDBD', border: 'unset'}" :railStyle="{background:'#585858'}" :processStyle="{background:'#fff'}" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import VueSlider from "vue-slider-component"
+import 'vue-slider-component/theme/antd.css'
 export default {
   name: 'App',
+  components: {
+    VueSlider
+  },
   data() {
     return {
       items: [
@@ -64,7 +80,24 @@ export default {
             { title: "Цвет #3" },
           ]
         }
-      ]
+      ],
+      camera: {
+        rotation: {
+          min: 0,
+          current: 0,
+          max: 360
+        },
+        height: {
+          min: 0,
+          current: 50,
+          max: 100,
+        },
+        range: {
+          min: 0,
+          current: 25,
+          max: 100
+        }
+      }
     }
   },
   mounted() {
@@ -357,6 +390,39 @@ body {
           }
         }
       }
+    }
+  }
+}
+
+.camera-controls {
+  display: grid;
+  width: 371px;
+  height: 140px;
+
+  grid-template-columns: 348px;
+  grid-template-rows: repeat(3, 32px);
+  grid-row-gap: 11px;
+
+  background: rgba(130, 130, 130, 0.74);
+  border-radius: 10px;
+
+  padding: 11px 11px 0 12px;
+
+  position: fixed;
+  right: 24px;
+  bottom: 20px;
+
+  & > .slider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > span {
+      color: #fff;
+
+      font-family: Montserrat-SemiBold, sans-serif;
+      font-weight: 600;
+      font-size: 12px;
     }
   }
 }
